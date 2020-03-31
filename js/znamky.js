@@ -7,6 +7,8 @@ class Znamky{
     this.y2 = y2;
   }
   
+  move(){};
+
   draw() {
     ctx.save()
     ctx.drawImage(this.image,  this.x, this.y, this.x2, this.y2)

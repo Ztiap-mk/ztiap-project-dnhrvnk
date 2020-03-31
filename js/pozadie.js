@@ -1,13 +1,38 @@
-class pozadie {
-    constructor() {
-      this.image = document.getElementById("pozadie")
-      this.x = canvas.width;
-      this.y = canvas.height;
+class pozadia {
+    constructor(id) {
+      this.id = id;
+      this.image = document.getElementById(this.id);
     }
-  
+    
+    move(){};
+    
     draw() {
       ctx.save()
-      ctx.drawImage(this.image, 0, 0, this.x, this.y)
+      ctx.drawImage(this.image, 0, 0, canvas.width, canvas.height)
       ctx.restore()
     }
   }
+
+class pozadie_level extends pozadia{
+  constructor(){
+    super("pozadie-level");
+  }
+}
+
+class pozadie_menu extends pozadia{
+  constructor(){
+    super("pozadie-menu");
+  }
+}
+
+class pozadie_prehra extends pozadia{
+  constructor(){
+    super("pozadie-prehra")
+  }
+}
+
+class pozadie_vyhra extends pozadia{
+  constructor(){
+    super("pozadie-vyhra")
+  }
+}
