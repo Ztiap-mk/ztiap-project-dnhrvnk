@@ -36,3 +36,9 @@ class pozadie_vyhra extends pozadia{
     super("pozadie-vyhra")
   }
 }
+
+class pozadie_pravidla extends pozadia{
+  constructor(){
+    super("pozadie-pravidla")
+  }
+}

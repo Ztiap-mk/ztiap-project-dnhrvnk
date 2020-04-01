@@ -111,3 +111,52 @@ class semester extends texty_menu{
         super(55, 190, "50", "black", "Hurá do nového semestra!");
     }
 }      
+
+//texty v pravidlach
+class pravidla_p extends texty_menu{
+    constructor() {
+        super(320, 80, "80", "black", "PRAVIDLÁ");
+    }
+}   
+
+class hraj_p extends texty_menu{
+    constructor() {
+        super(200, 520, "80", "black", "HRAJ");
+    }
+}   
+
+class menu extends texty_menu{
+    constructor() {
+        super(580, 520, "80", "black", "MENU");
+    }
+}
+
+class prva_veta extends texty_menu{
+    constructor() {
+        super(50, 150, "25", "black", "Zozbieraj najlepšie známky za semester a získaj tak najlepší priemer.");
+    }
+}
+
+class druha_vety extends texty_menu{
+    constructor() {
+        super(50, 200, "25", "black", "Známky zozbieraš kliknutím myši na hraciu plochu alebo medzerníkom na klávesnici.");
+    }
+}
+
+class tretia_vety extends texty_menu{
+    constructor() {
+        super(50, 250, "25", "black", "POZOR! Nechytaj známku FX, hneď prehráš!");
+    }
+}
+
+class stvrta_veta extends texty_menu{
+    constructor() {
+        super(50, 300, "25", "black", "Nezabudni zozbierať požadovaný počet známok za level za daný časovy limit.");
+    }
+}
+
+class piata_veta extends texty_menu{
+    constructor() {
+        super(50, 350, "25", "black", "Tvoj celkový priemer musí byť nad 2.0, tak hor sa do učenia!");
+    }
+}
