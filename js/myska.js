@@ -43,23 +43,26 @@ class myska {
       if((vstupy[32] == 0 || vstupy[123] == 0)){
         this.uhol += this.speed;
       }
+
+      
       //vstup z klavesnice a pohyb dole
-      if((vstupy[32] == 1 || vstupy[123] == 1) && this.p < 290){
-        this.y2 += 1;
+      if((vstupy[32] == 1 || vstupy[123] == 1) && this.p < 100){
+        this.y2 += 3;
         this.p++;
         this.speed = 0;
+        console.log(this.p);
       }
-      if(this.p == 290){
+      if(this.p == 100){
         this.p = 0;
         vstupy[32] = 5;
         vstupy[123] = 5;
       }
-      if((vstupy[32] == 5 || vstupy[123] == 5) && this.p > -290){
-        this.y2 -= 1;
+      if((vstupy[32] == 5 || vstupy[123] === 5) && this.p > -100){
+        this.y2 -= 3;
         this.p--;
         this.speed = 0;
       }
-      if(this.p == -290){
+      if(this.p == -100){
         this.p = 0;
         vstupy[32] = 0;
         vstupy[123] = 0;

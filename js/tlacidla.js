@@ -21,9 +21,8 @@ class tlacidla {
     onclick(x,y) {
         if (x > this.x1  && x < this.x1 + this.x2 && 
             y > this.y1 && y < this.y1 + this.y2){
-            return this.akcia
+            prave_scena = this.akcia
             }
-        return undefined
     }
 }
 
