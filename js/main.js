@@ -1,15 +1,18 @@
 var canvas
 var ctx
-var scene = []
+var bg_hudba = new Audio("../zvuky/hlavna_hudba.mp3")
+bg_hudba.volume = 0.3
+var klikanie_hudba = new Audio("../zvuky/klikanie.mp3")
+var plac_hudba = new Audio("../zvuky/game_over.mp3")
 var vstupy = new Array(200);
 var sceny = new Array();
-var prave_scena = 0;
+var prave_scena = 0
+var kolko_znamok = 4
 
 for(i = 0; i < 5; i++) sceny.push(new Array());
 for(i = 0; i < 200; i++) vstupy[i] = 0;
 
 function draw() {
-  console.log(prave_scena);
   sceny[prave_scena].forEach(element =>{
     element.move();
     element.draw();
@@ -52,14 +55,28 @@ window.onload = function() {
       vstupy[123] = 0;
     }
 
-    var tlacidlo_zrus = sceny[1][7];
-    if(x > tlacidlo_zrus.x  && x < tlacidlo_zrus.x + tlacidlo_zrus.velkost 
-       && y > tlacidlo_zrus.y && y < tlacidlo_zrus.y + tlacidlo_zrus.velkost){
+    var tlacidlo_zrus_hru = sceny[1][7];
+    if(x > tlacidlo_zrus_hru.x  && x < tlacidlo_zrus_hru.x + tlacidlo_zrus_hru.velkost 
+       && y > tlacidlo_zrus_hru.y && y < tlacidlo_zrus_hru.y + tlacidlo_zrus_hru.velkost){
         prave_scena = 2;
         vstupy[123] = 0
     }
-  }
 
+  var menenie_zvuku = sceny[prave_scena][1];
+    if(x > menenie_zvuku.x  && x < menenie_zvuku.x + menenie_zvuku.velkost 
+       && y > menenie_zvuku.y && y < menenie_zvuku.y + menenie_zvuku.velkost){
+          if(document.getElementById("zvuk").src == "file:///C:/Users/dadah/Desktop/STU%20FIIT/2.%20semester/ZTIAP/hra/materialy/zvuk/vypnuty%20zvuk.png"){
+            document.getElementById("zvuk").src = "../materialy/zvuk/zapnuty zvuk.png";
+            bg_hudba.play()
+            if(prave_scena === 2) plac_hudba.play();
+            else plac_hudba.pause()
+          } else {
+            document.getElementById("zvuk").src = "../materialy/zvuk/vypnuty zvuk.png";
+            bg_hudba.pause()
+            plac_hudba.pause()
+          }
+    }
+  }
 
   function klavesnica(event){
     vstupy[event.keyCode] = 1;
@@ -68,7 +85,6 @@ window.onload = function() {
   //scena - menu
   sceny[0].push(new pozadie_menu())
   sceny[0].push(new zvuk_zap())
-  //sceny[0].push(new zvuk_vyp())
   sceny[0].push(new tlacidlo1_menu())
   sceny[0].push(new tlacidlo2_menu())
   sceny[0].push(new nazov_hry())
@@ -76,29 +92,29 @@ window.onload = function() {
   sceny[0].push(new hraj())
   sceny[0].push(new pravidla())
   
-
   //scena - level
   sceny[1].push(new pozadie_level())
   sceny[1].push(new zvuk_zap())
-  //sceny[1].push(new zvuk_vyp())
   sceny[1].push(new myska())
   sceny[1].push(new priemer())
   sceny[1].push(new znamky())
   sceny[1].push(new cas())
   sceny[1].push(new level())
   sceny[1].push(new krizik())
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < kolko_znamok; i++){
        sceny[1].push(new znamkaA())
        sceny[1].push(new znamkaB())
        sceny[1].push(new znamkaC())
        sceny[1].push(new znamkaD())
        sceny[1].push(new znamkaE())
   }
+  for(j = 8; j < kolko_znamok*5+8; j++){
+    sceny[1][j].kolizia()
+  }
 
   //scena - prehra
   sceny[2].push(new pozadie_prehra())
   sceny[2].push(new zvuk_zap())
- // sceny[2].push(new zvuk_vyp())
   sceny[2].push(new tlacidlo1_prehra())
   sceny[2].push(new tlacidlo2_prehra())
   sceny[2].push(new prehral())
@@ -110,7 +126,6 @@ window.onload = function() {
   //scena - vyhra
   sceny[3].push(new pozadie_vyhra())
   sceny[3].push(new zvuk_zap())
-  //sceny[3].push(new zvuk_vyp())
   sceny[3].push(new tlacidlo1_prehra())
   sceny[3].push(new tlacidlo2_prehra())
   sceny[3].push(new znova())
@@ -122,7 +137,6 @@ window.onload = function() {
   //scena - pravidla 
   sceny[4].push(new pozadie_pravidla())
   sceny[4].push(new zvuk_zap())
-  //sceny[4].push(new zvuk_vyp())
   sceny[4].push(new tlacidlo1_pravidla())
   sceny[4].push(new tlacidlo2_pravidla())
   sceny[4].push(new pravidla_p())

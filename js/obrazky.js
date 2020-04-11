@@ -17,16 +17,7 @@ class obrazky {
 
 class zvuk_zap extends obrazky {
   constructor() {
-    super("zvuk-zapnuty", 10, canvas.height - 60, 50);
-  }
-  zmena_zvuku(){
-    
-  }
-}
-
-class zvuk_vyp extends obrazky {
-  constructor() {
-    super("zvuk-vypnuty", 10, canvas.height - 60, 50);
+    super("zvuk", 10, canvas.height - 60, 50);
   }
 }
 

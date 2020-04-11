@@ -6,7 +6,7 @@ class myska {
       this.x2 = canvas.width/2;
       this.y2 = canvas.height/2 - 30;
       this.uhol = 0.0;
-      this.speed = 0.025;
+      this.speed = 0.04;
       this.p = 0;
     }
 
@@ -44,29 +44,31 @@ class myska {
         this.uhol += this.speed;
       }
 
-      
       //vstup z klavesnice a pohyb dole
-      if((vstupy[32] == 1 || vstupy[123] == 1) && this.p < 100){
-        this.y2 += 3;
+      if((vstupy[32] == 1 || vstupy[123] == 1) && this.p < 60){
+        if(bg_hudba.paused == 0) klikanie_hudba.play()
+        bg_hudba.volume = 0.1
+        this.y2 += 5;
         this.p++;
         this.speed = 0;
-        console.log(this.p);
       }
-      if(this.p == 100){
+      if(this.p == 60){
         this.p = 0;
         vstupy[32] = 5;
         vstupy[123] = 5;
       }
-      if((vstupy[32] == 5 || vstupy[123] === 5) && this.p > -100){
-        this.y2 -= 3;
+      if((vstupy[32] == 5 || vstupy[123] === 5) && this.p > -60){
+        this.y2 -= 5;
         this.p--;
         this.speed = 0;
       }
-      if(this.p == -100){
+      if(this.p == -60){
         this.p = 0;
         vstupy[32] = 0;
         vstupy[123] = 0;
-        this.speed = 0.025;
+        this.speed = 0.04;
+        klikanie_hudba.pause();
+        bg_hudba.volume = 0.3;
       }
   }
 }
