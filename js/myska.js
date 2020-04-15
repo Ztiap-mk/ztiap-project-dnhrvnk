@@ -8,6 +8,7 @@ class myska {
       this.uhol = 0.0;
       this.speed = 0.04;
       this.dole = true;
+      this.hore = true;
 
       this.act2X = this.x2;
       this.act2Y = this.y2;
@@ -63,21 +64,23 @@ class myska {
         bg_hudba.volume = 0.1
         this.y2 += 5;
         this.speed = 0;
+        this.hore = false
       }
       if(this.actX < 0 || this.actX > canvas.width || this.actY > canvas.height){
         this.dole = false
       }
-      if(!this.dole){
-        this.y2 -= 5;
-        vstupy[32] = 0;
-        vstupy[123] = 0;
-      }
-      if(this.y2 == canvas.height/2 - 30 && !this.dole){
+      if(this.y2 <= canvas.height/2 - 30 && !this.dole){
         this.y2 = canvas.height/2 - 30;
         this.speed = 0.04;
         klikanie_hudba.pause();
         bg_hudba.volume = 0.3;
         this.dole = true;
+        this.hore = true
+        vstupy[32] = 0;
+        vstupy[123] = 0;
+      } 
+      if(!this.dole && !this.hore){
+        this.y2 -= 5;
       }
   }
 }

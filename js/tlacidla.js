@@ -30,6 +30,8 @@ class tlacidlo1_menu extends tlacidla{
     constructor(){
         super(70, 200, 300, 90);
         this.akcia = 1
+        level_scena.vymaz();
+        level_scena.pridaj()
     }
 }
 

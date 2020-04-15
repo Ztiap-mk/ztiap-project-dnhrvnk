@@ -72,6 +72,8 @@ class casovac extends text{
             prave_scena = 2;
             this.sekundy = 30;
             this.cas = 0;
+            level_scena.vymaz();
+            level_scena.pridaj()
         }
     }
 }

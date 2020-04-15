@@ -16,12 +16,11 @@ class Znamky{
       if(!chytenie_znamky){
         this.y -= 5;
         myska.dole = false;
-
-        if(sceny[1][i].y <= canvas.height/2-50){
+      }
+      if(sceny[1][i].y <= canvas.height/2-50){
           console.log(sceny[1][i].y)
           sceny[1][6].zmena_textu()
           sceny[1].splice(i, 1);
-        }
       }
     }
   };

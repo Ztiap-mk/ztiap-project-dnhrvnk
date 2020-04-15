@@ -15,6 +15,14 @@ class ScenaMenu {
 
 class ScenaLevel {
     constructor(){
+        this.pridaj();
+    }
+
+    vymaz() {
+        sceny[1] = [];
+    }
+
+    pridaj() {
         sceny[1].push(new pozadie_level())
         sceny[1].push(new zvuk_zap())
         sceny[1].push(new myska())
@@ -68,6 +76,7 @@ class ScenaVyhra {
         sceny[3].push(new vyhral())
         sceny[3].push(new semester())
     }
+
     move(){}
     draw(){}
 }

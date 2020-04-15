@@ -23,6 +23,7 @@ function zmena_zvukov(){
     plac_hudba.play();
   }
   else if(prave_scena != 2 && bg_hudba.paused == false) plac_hudba.pause()
+  else if(prave_scena != 1 && bg_hudba.paused == false) klikanie_hudba.pause()
 }
 
 function aky_je_smer(x,y, matica){
@@ -65,21 +66,24 @@ window.onload = function() {
     var tlacidlo_zrus_hru = sceny[1][11];
     if(x > tlacidlo_zrus_hru.x  && x < tlacidlo_zrus_hru.x + tlacidlo_zrus_hru.velkost 
        && y > tlacidlo_zrus_hru.y && y < tlacidlo_zrus_hru.y + tlacidlo_zrus_hru.velkost){
-        console.log("stalcil sa >:(")
         prave_scena = 2;
         vstupy[123] = 0
+        level_scena.vymaz()
+        level_scena.pridaj()
     }
 
-  var menenie_zvuku = sceny[prave_scena][1];
+    var menenie_zvuku = sceny[prave_scena][1];
     if(x > menenie_zvuku.x  && x < menenie_zvuku.x + menenie_zvuku.velkost 
        && y > menenie_zvuku.y && y < menenie_zvuku.y + menenie_zvuku.velkost){
-          if(document.getElementById("zvuk").src == "file:///C:/Users/dadah/Desktop/STU%20FIIT/2.%20semester/ZTIAP/hra/materialy/zvuk/vypnuty%20zvuk.png"){
+          if(zapnute == false){
             document.getElementById("zvuk").src = "../materialy/zvuk/zapnuty zvuk.png";
             bg_hudba.play()
+            zapnute = true
           } else {
             document.getElementById("zvuk").src = "../materialy/zvuk/vypnuty zvuk.png";
             bg_hudba.pause()
             plac_hudba.pause()
+            zapnute = false
           }
     }
   }
@@ -88,11 +92,11 @@ window.onload = function() {
     vstupy[event.keyCode] = 1;
   }
 
-  new(ScenaMenu);
-  new(ScenaLevel);
-  new(ScenaPrehra);
-  new(ScenaVyhra);
-  new(ScenyPravidla);
+  level_scena = new ScenaLevel;
+  new ScenaMenu;
+  new ScenaPrehra;
+  new ScenaVyhra;
+  new ScenyPravidla;
 
   requestAnimationFrame(step)
 }
