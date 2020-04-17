@@ -8,17 +8,18 @@ class Znamky{
     this.ok = false;
   }
   
-  move(){
+  move(delta){
     var myska = sceny[1][2];
     for(i = 12; i < sceny[1].length; i++){
       var chytenie_znamky = this.x >= myska.actX-25 + 50 || this.x + this.x2 <= myska.actX-25 ||
                             this.y >= myska.actY + 50 || this.y + this.y2 <= myska.actY;
       if(!chytenie_znamky){
-        this.y -= 5;
+        this.y -= 500 * delta;
+        this.x += 1;
         myska.dole = false;
       }
       if(sceny[1][i].y <= canvas.height/2-50){
-          console.log(sceny[1][i].y)
+          sceny[1][4].vypocet_priemeru(sceny[1][i]);
           sceny[1][6].zmena_textu()
           sceny[1].splice(i, 1);
       }

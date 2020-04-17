@@ -26,7 +26,7 @@ class ScenaLevel {
         sceny[1].push(new pozadie_level())
         sceny[1].push(new zvuk_zap())
         sceny[1].push(new myska())
-        sceny[1].push(new priemer())
+        sceny[1].push(new text_priemer())
         sceny[1].push(new pocitadlo_priemeru())
         sceny[1].push(new znamky())
         sceny[1].push(new pocitadlo_znamok())
@@ -57,7 +57,7 @@ class ScenaPrehra {
         sceny[2].push(new prehral())
         sceny[2].push(new o_rok())
         sceny[2].push(new znova())
-        sceny[2].push(new skore())
+        sceny[2].push(new skore_prehra())
         sceny[2].push(new ukonci())
     }
     move(){}
@@ -72,7 +72,7 @@ class ScenaVyhra {
         sceny[3].push(new tlacidlo2_prehra())
         sceny[3].push(new znova())
         sceny[3].push(new ukonci())
-        sceny[3].push(new skore())
+        sceny[3].push(new skore_vyhra())
         sceny[3].push(new vyhral())
         sceny[3].push(new semester())
     }

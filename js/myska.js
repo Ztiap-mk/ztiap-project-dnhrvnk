@@ -15,12 +15,6 @@ class myska {
     }
 
     draw() {
-
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height/2 - 50);
-        ctx.lineTo(canvas.width, canvas.height/2-50);
-        ctx.stroke();
-
           //ciara na mysku a jej rotacia
           ctx.save();
           ctx.beginPath();
@@ -50,19 +44,24 @@ class myska {
           ctx.restore()
     }
 
-    move() {
+    move(delta) {
+      if(pocet_levelov == 1) var rychlost_mysky = 300;
+      else if(pocet_levelov == 2) var rychlost_mysky = 350;
+      else var rychlost_mysky = 400;
+      
       if(Math.abs(this.uhol) > Math.PI*0.5){
         this.speed = -this.speed;
       }
+
       if((vstupy[32] == 0 || vstupy[123] == 0)){
-        this.uhol += this.speed;
+        this.uhol += this.speed * delta * (rychlost_mysky/3);
       }
 
       //vstup z klavesnice a pohyb dole
       if((vstupy[32] == 1 || vstupy[123] == 1) && this.dole){
         if(bg_hudba.paused == 0) klikanie_hudba.play()
         bg_hudba.volume = 0.1
-        this.y2 += 5;
+        this.y2 += rychlost_mysky * delta;
         this.speed = 0;
         this.hore = false
       }
@@ -80,7 +79,7 @@ class myska {
         vstupy[123] = 0;
       } 
       if(!this.dole && !this.hore){
-        this.y2 -= 5;
+        this.y2 -= rychlost_mysky * delta;
       }
   }
 }

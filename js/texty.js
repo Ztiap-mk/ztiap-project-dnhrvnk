@@ -18,7 +18,7 @@ class text {
 }
 
 //texty v leveli
-class priemer extends text{
+class text_priemer extends text{
     constructor(){
         super(10, 40, "30", "black", "Priemer: ");
     }
@@ -26,7 +26,27 @@ class priemer extends text{
 
 class pocitadlo_priemeru extends text{
     constructor(){
-        super(130, 40, "30", "black", "0.0");
+        super(130, 40, "30", "black", ''+priemer);
+        this.pocet_znamok = 0;
+        this.sucet_znamok = 0;
+    }
+    vypocet_priemeru(zozbierana_znamka){
+        this.pocet_znamok++;
+        var id_znamky = zozbierana_znamka["image"].id;
+        var hodnota_znamky;
+        if(id_znamky == "znamkaA") hodnota_znamky = 1.0;
+        if(id_znamky == "znamkaB") hodnota_znamky = 1.5;
+        if(id_znamky == "znamkaC") hodnota_znamky = 2.0;
+        if(id_znamky == "znamkaD") hodnota_znamky = 2.5;
+        if(id_znamky == "znamkaE") hodnota_znamky = 3.0;
+
+        this.sucet_znamok += hodnota_znamky;
+        priemer = this.sucet_znamok / this.pocet_znamok;
+        
+        priemer = Math.round(priemer * 100) / 100
+        this.text = '' + priemer;
+        sceny[2][7].zmena_textu(priemer);
+        sceny[3][6].zmena_textu(priemer);
     }
 }
 
@@ -38,13 +58,18 @@ class znamky extends text{
 
 class pocitadlo_znamok extends text {
     constructor() {
-        var pocet = 0;
-        super(130, 80, "30", "black", pocet+"/10")
-        this.pocet = pocet;
+        super(130, 80, "30", "black", ''+pocet_zozbieranych_znamok+"/6")
     }
     zmena_textu(){
-        this.pocet++;
-        this.text = this.pocet + "/10";
+        pocet_zozbieranych_znamok++;
+        this.text = ''+pocet_zozbieranych_znamok + "/6";
+
+        if(pocet_zozbieranych_znamok == 6){
+            pocet_levelov++;
+            pocet_zozbieranych_znamok = 0;
+            level_scena.vymaz();
+            level_scena.pridaj()
+        }
     }
 }
 
@@ -68,6 +93,9 @@ class casovac extends text{
             this.text = '' + this.sekundy; 
             this.cas = 0;
         }
+
+        if(this.sekundy <= 5) this.farba = "red";
+
         if(this.sekundy == 0) {
             prave_scena = 2;
             this.sekundy = 30;
@@ -86,7 +114,7 @@ class level extends text{
 
 class cislo_levelu extends text{
     constructor() {
-        super(canvas.width - 85, 80, "30", "black", "1")
+        super(canvas.width - 85, 80, "30", "black", pocet_levelov + '')
     }
 }
 
@@ -129,9 +157,12 @@ class o_rok extends text{
     }
 }
 
-class skore extends text{
+class skore_prehra extends text{
     constructor() {
-        super(55, 240, "50", "black", "Tvoje skóre bolo:");
+        super(55, 240, "50", "black", "Tvoje skóre bolo: "+ priemer)
+    }
+    zmena_textu(score){
+        this.text = "Tvoje skóre bolo: "+ score;
     }
 }
 
@@ -159,6 +190,15 @@ class semester extends text{
         super(55, 190, "50", "black", "Hurá do nového semestra!");
     }
 }      
+
+class skore_vyhra extends text{
+    constructor() {
+        super(55, 240, "50", "black", "Tvoje skóre bolo: "+ priemer);
+    }
+    zmena_textu(score){
+        this.text = "Tvoje skóre bolo: "+ priemer;
+    }
+}
 
 //texty v pravidlach
 class pravidla_p extends text{

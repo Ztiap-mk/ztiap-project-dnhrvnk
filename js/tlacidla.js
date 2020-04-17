@@ -45,7 +45,6 @@ class tlacidlo2_menu extends tlacidla{
 class tlacidlo1_prehra extends tlacidla{
     constructor(){
         super(70, 270, 300, 90);
-        this.akcia = 1;
     }
 }
 

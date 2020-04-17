@@ -9,6 +9,7 @@ function step() {
   draw()
   zmena_zvukov()
   delta_time()
+  vyhra_alebo_pregra();
   requestAnimationFrame(step)
 }
 
@@ -19,17 +20,24 @@ function delta_time(){
 }
 
 function zmena_zvukov(){
-  if(prave_scena === 2 && bg_hudba.paused == false) {
+  if(prave_scena === 2 && zapnute == true) {
     plac_hudba.play();
   }
-  else if(prave_scena != 2 && bg_hudba.paused == false) plac_hudba.pause()
-  else if(prave_scena != 1 && bg_hudba.paused == false) klikanie_hudba.pause()
+  else if(prave_scena != 2 && zapnute == true) plac_hudba.pause()
+  else if(prave_scena != 1 && zapnute == true) klikanie_hudba.pause()
 }
 
 function aky_je_smer(x,y, matica){
   var Fx = matica.m11*x-matica.m12*y+matica.m41;
   var Fy = -matica.m21*x+ matica.m22*y+matica.m42;
   return {Fx,Fy};
+}
+
+function vyhra_alebo_pregra() {
+  if(pocet_levelov == 4){
+    if(priemer < 2.0) prave_scena = 3;
+    else prave_scena = 2;
+  }
 }
 
 window.onload = function() {
@@ -85,7 +93,7 @@ window.onload = function() {
             plac_hudba.pause()
             zapnute = false
           }
-    }
+     }
   }
 
   function klavesnica(event){
