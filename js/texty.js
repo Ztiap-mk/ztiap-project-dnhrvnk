@@ -39,6 +39,7 @@ class pocitadlo_priemeru extends text{
         if(id_znamky == "znamkaC") hodnota_znamky = 2.0;
         if(id_znamky == "znamkaD") hodnota_znamky = 2.5;
         if(id_znamky == "znamkaE") hodnota_znamky = 3.0;
+        if(id_znamky == "znamkaFX") hodnota_znamky = 3.5;
 
         this.sucet_znamok += hodnota_znamky;
         priemer = this.sucet_znamok / this.pocet_znamok;
@@ -66,9 +67,8 @@ class pocitadlo_znamok extends text {
 
         if(pocet_zozbieranych_znamok == 6){
             pocet_levelov++;
-            pocet_zozbieranych_znamok = 0;
-            level_scena.vymaz();
-            level_scena.pridaj()
+            zmena_levelu();
+            prave_scena = 5;
         }
     }
 }
@@ -100,8 +100,7 @@ class casovac extends text{
             prave_scena = 2;
             this.sekundy = 30;
             this.cas = 0;
-            level_scena.vymaz();
-            level_scena.pridaj()
+            zmena_levelu();
         }
     }
 }
@@ -246,5 +245,34 @@ class stvrta_veta extends text{
 class piata_veta extends text{
     constructor() {
         super(50, 350, "25", "black", "Tvoj celkový priemer musí byť pod 2.0, tak hor sa do učenia!");
+    }
+}
+
+//texty v medzileveli
+class medzilevel extends text{
+    constructor() {
+        var level_text = pocet_levelov;
+        super(100, 250, "150", "black", "Level " + level_text);
+        this.level_text = level_text;
+        this.cas = 0;
+    }
+
+    move(delta){
+        this.cas += delta;
+        if(this.cas >= 1.5){
+            this.cas = 0;
+            prave_scena = 1;
+        }
+    }
+}
+
+class medzilevel_tien extends text{
+    constructor() {
+        var level_text = pocet_levelov + 1;
+        super(95, 250, "150", "#598176", "Level " + level_text);
+        this.level_text = level_text;
+    }
+    draw(){
+        this.text = "Level" + pocet_levelov;
     }
 }

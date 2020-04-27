@@ -9,7 +9,7 @@ class myska {
       this.speed = 0.04;
       this.dole = true;
       this.hore = true;
-
+      this.mimo =false;
       this.act2X = this.x2;
       this.act2Y = this.y2;
     }
@@ -49,8 +49,11 @@ class myska {
       else if(pocet_levelov == 2) var rychlost_mysky = 350;
       else var rychlost_mysky = 400;
       
-      if(Math.abs(this.uhol) > Math.PI*0.5){
+      if(Math.abs(this.uhol) > Math.PI*0.5 && !this.mimo){
         this.speed = -this.speed;
+        this.mimo = true;
+      }else if (this.mimo){
+        this.mimo = false;
       }
 
       if((vstupy[32] == 0 || vstupy[123] == 0)){

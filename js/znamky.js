@@ -19,9 +19,14 @@ class Znamky{
         myska.dole = false;
       }
       if(sceny[1][i].y <= canvas.height/2-50){
-          sceny[1][4].vypocet_priemeru(sceny[1][i]);
-          sceny[1][6].zmena_textu()
-          sceny[1].splice(i, 1);
+        sceny[1][4].vypocet_priemeru(sceny[1][i]);
+        sceny[1][6].zmena_textu()
+        sceny[1].splice(i, 1);
+        if(zapnute) body_zvuk.play();
+      }
+      if(!chytenie_znamky && this["image"].id == "znamkaFX"){
+            zmena_levelu()
+            prave_scena = 2;
       }
     }
   };

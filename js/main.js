@@ -20,11 +20,11 @@ function delta_time(){
 }
 
 function zmena_zvukov(){
-  if(prave_scena === 2 && zapnute == true) {
-    plac_hudba.play();
-  }
-  else if(prave_scena != 2 && zapnute == true) plac_hudba.pause()
-  else if(prave_scena != 1 && zapnute == true) klikanie_hudba.pause()
+  if(prave_scena === 2 && zapnute) prehra_hudba.play();
+  if(prave_scena != 2 && zapnute) prehra_hudba.pause()
+  if(prave_scena != 1 && zapnute ) klikanie_hudba.pause()
+  if(prave_scena === 3 && zapnute) vyhra_hudba.play();
+  if(prave_scena != 3 && zapnute) vyhra_hudba.pause();
 }
 
 function aky_je_smer(x,y, matica){
@@ -38,6 +38,12 @@ function vyhra_alebo_pregra() {
     if(priemer < 2.0) prave_scena = 3;
     else prave_scena = 2;
   }
+}
+
+function zmena_levelu(){
+  pocet_zozbieranych_znamok = 0;
+  level_scena.vymaz()
+  level_scena.pridaj()
 }
 
 window.onload = function() {
@@ -59,12 +65,18 @@ window.onload = function() {
       sceny[2][2].onclick(x,y);
       sceny[2][3].onclick(x,y)
       vstupy[123] = 0;
+      pocet_levelov = 1;
+      priemer = 0.0;
+      zmena_levelu();
     }
     else if(prave_scena === 3){
       sceny[3][2].onclick(x,y);
       sceny[3][3].onclick(x,y)
       vstupy[123] = 0;
-    }
+      pocet_levelov = 1;
+      priemer = 0.0;
+      zmena_levelu();
+    } 
     else if(prave_scena === 4){
       sceny[4][3].onclick(x,y);
       sceny[4][2].onclick(x,y);
@@ -76,8 +88,9 @@ window.onload = function() {
        && y > tlacidlo_zrus_hru.y && y < tlacidlo_zrus_hru.y + tlacidlo_zrus_hru.velkost){
         prave_scena = 2;
         vstupy[123] = 0
-        level_scena.vymaz()
-        level_scena.pridaj()
+        zmena_levelu();
+        priemer = 0.0;
+        pocet_levelov = 1;
     }
 
     var menenie_zvuku = sceny[prave_scena][1];
@@ -90,7 +103,8 @@ window.onload = function() {
           } else {
             document.getElementById("zvuk").src = "../materialy/zvuk/vypnuty zvuk.png";
             bg_hudba.pause()
-            plac_hudba.pause()
+            prehra_hudba.pause()
+            vyhra_hudba.pause();
             zapnute = false
           }
      }
@@ -105,6 +119,7 @@ window.onload = function() {
   new ScenaPrehra;
   new ScenaVyhra;
   new ScenyPravidla;
+  new ScenyMedzilevel;
 
   requestAnimationFrame(step)
 }

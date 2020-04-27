@@ -42,7 +42,11 @@ class ScenaLevel {
              sceny[1].push(new znamkaD())
              sceny[1].push(new znamkaE())
         }
-        for(var j = 12; j < kolko_znamok*5+12; j++) sceny[1][j].kolizia()
+        if(pocet_levelov == 3){
+            for (i = 0; i < kolko_znamok; i++) sceny[1].push(new znamkaFX())
+            for(var j = 12; j < kolko_znamok*6+12; j++) sceny[1][j].kolizia()
+        }
+        else for(var j = 12; j < kolko_znamok*5+12; j++) sceny[1][j].kolizia()
     }
     move() {}
     draw() {}
@@ -95,6 +99,17 @@ class ScenyPravidla {
         sceny[4].push(new tretia_vety())
         sceny[4].push(new stvrta_veta())
         sceny[4].push(new piata_veta())
+    }
+    move(){}
+    draw(){}
+}
+
+class ScenyMedzilevel {
+    constructor(){
+        sceny[5].push(new pozadie_medzilevel())
+        sceny[5].push(new zvuk_zap())
+        sceny[5].push(new medzilevel());
+        sceny[5].push(new medzilevel_tien());
     }
     move(){}
     draw(){}

@@ -42,3 +42,9 @@ class pozadie_pravidla extends pozadia{
     super("pozadie-pravidla")
   }
 }
+
+class pozadie_medzilevel extends pozadia{
+  constructor(){
+    super("pozadie-medzilevel");
+  }
+}
