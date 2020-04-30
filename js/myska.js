@@ -10,8 +10,8 @@ class myska {
       this.dole = true;
       this.hore = true;
       this.mimo =false;
-      this.act2X = this.x2;
-      this.act2Y = this.y2;
+      this.jednotkoveX = 0;
+      this.jednotkoveY = 0;
     }
 
     draw() {
@@ -45,6 +45,12 @@ class myska {
     }
 
     move(delta) {
+      var x = this.actX-this.x1;
+      var y = this.actY-this.y1;
+      var velkost = Math.sqrt(x*x + y*y)
+      this.jednotkoveX = (x)/velkost;
+      this.jednotkoveY = (y)/velkost;
+      
       if(pocet_levelov == 1) var rychlost_mysky = 300;
       else if(pocet_levelov == 2) var rychlost_mysky = 350;
       else var rychlost_mysky = 400;
@@ -75,7 +81,7 @@ class myska {
         this.y2 = canvas.height/2 - 30;
         this.speed = 0.04;
         klikanie_hudba.pause();
-        bg_hudba.volume = 0.3;
+        bg_hudba.volume = 0.2;
         this.dole = true;
         this.hore = true
         vstupy[32] = 0;

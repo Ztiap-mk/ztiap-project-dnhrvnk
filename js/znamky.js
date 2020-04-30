@@ -1,7 +1,7 @@
 class Znamky{
   constructor(znamka, x2, y2) {
     this.image = document.getElementById(znamka)
-    this.x = Math.floor(Math.random() * ((canvas.width - 50) + 1) );
+    this.x = Math.floor(Math.random() * ((canvas.width - 100) + 1 ) + 80);
     this.y = canvas.height - Math.floor(Math.random() * ((canvas.height - 50) - 160 + 1) + 150)/2;
     this.x2 = x2;
     this.y2 = y2;
@@ -14,18 +14,18 @@ class Znamky{
       var chytenie_znamky = this.x >= myska.actX-25 + 50 || this.x + this.x2 <= myska.actX-25 ||
                             this.y >= myska.actY + 50 || this.y + this.y2 <= myska.actY;
       if(!chytenie_znamky){
-        this.y -= 500 * delta;
-        this.x += 1;
+        this.x -= myska.jednotkoveX;
+        this.y -= myska.jednotkoveY; 
         myska.dole = false;
       }
-      if(sceny[1][i].y <= canvas.height/2-50){
+      if(sceny[1][i].y <= canvas.height/2-10){
         sceny[1][4].vypocet_priemeru(sceny[1][i]);
-        sceny[1][6].zmena_textu()
+        sceny[1][6].zmena_textu();
         sceny[1].splice(i, 1);
         if(zapnute) body_zvuk.play();
       }
       if(!chytenie_znamky && this["image"].id == "znamkaFX"){
-            zmena_levelu()
+            zmena_levelu();
             prave_scena = 2;
       }
     }
@@ -45,7 +45,7 @@ class Znamky{
       var je_kolizia = this.x >= obj.x + obj.x2 || this.x + this.x2 <= obj.x ||
                   this.y >= obj.y + obj.y2 || this.y + this.y2 <= obj.y;  
       if(!je_kolizia){
-        this.x = Math.floor(Math.random() * ((canvas.width - 50) + 1) );
+        this.x = Math.floor(Math.random() * ((canvas.width - 100) + 1) + 80);
         this.y = canvas.height - Math.floor(Math.random() * ((canvas.height - 50) + 1) + 100)/2;
         this.kolizia()
       }

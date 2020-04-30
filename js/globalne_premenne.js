@@ -4,6 +4,7 @@ var ctx
 var bg_hudba = new Audio("../zvuky/hlavna_hudba.mp3")
 bg_hudba.volume = 0.2
 var klikanie_hudba = new Audio("../zvuky/klikanie.mp3")
+klikanie_hudba.volume = 0.5
 var prehra_hudba = new Audio("../zvuky/game_over.mp3")
 var vyhra_hudba = new Audio("../zvuky/vyhra.mp3")
 var body_zvuk = new Audio("../zvuky/bod.mp3");

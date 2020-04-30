@@ -69,6 +69,8 @@ class pocitadlo_znamok extends text {
             pocet_levelov++;
             zmena_levelu();
             prave_scena = 5;
+            sceny[5][2].zmena_textu();
+            sceny[5][3].zmena_textu();
         }
     }
 }
@@ -251,9 +253,7 @@ class piata_veta extends text{
 //texty v medzileveli
 class medzilevel extends text{
     constructor() {
-        var level_text = pocet_levelov;
-        super(100, 250, "150", "black", "Level " + level_text);
-        this.level_text = level_text;
+        super(100, 250, "150", "black", "Level " + pocet_levelov);
         this.cas = 0;
     }
 
@@ -264,15 +264,16 @@ class medzilevel extends text{
             prave_scena = 1;
         }
     }
+    zmena_textu(){
+        this.text = "Level " + pocet_levelov;
+    }
 }
 
 class medzilevel_tien extends text{
     constructor() {
-        var level_text = pocet_levelov + 1;
-        super(95, 250, "150", "#598176", "Level " + level_text);
-        this.level_text = level_text;
+        super(95, 250, "150", "#598176", "Level " + pocet_levelov);
     }
-    draw(){
-        this.text = "Level" + pocet_levelov;
+    zmena_textu(){
+        this.text = "Level " + pocet_levelov;
     }
 }
