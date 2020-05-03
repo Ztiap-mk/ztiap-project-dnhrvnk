@@ -9,9 +9,10 @@ class myska {
       this.speed = 0.04;
       this.dole = true;
       this.hore = true;
-      this.mimo =false;
+      this.mimo = false;
       this.jednotkoveX = 0;
       this.jednotkoveY = 0;
+      this.farba_mysky = 0;
     }
 
     draw() {
@@ -20,7 +21,7 @@ class myska {
           ctx.beginPath();
           ctx.translate(this.x1, this.y1);
           ctx.rotate(this.uhol);
-          ctx.translate(-this.x1, -this.y1); 
+          ctx.translate(-this.x1, -this.y1);
          
           var smer = aky_je_smer(this.x2,this.y2,ctx.getTransform());
           this.actX = smer.Fx;
@@ -40,7 +41,7 @@ class myska {
           ctx.translate(this.x1, this.y1);
           ctx.rotate(this.uhol);
           ctx.translate(-this.x1, -this.y1);
-          ctx.drawImage(this.image,  this.x2-25, this.y2, 50, 50)
+          ctx.drawImage(this.image, 225*this.farba_mysky, 0, 250, 250, this.x2-25, this.y2, 55, 55);
           ctx.restore()
     }
 
@@ -58,7 +59,7 @@ class myska {
       if(Math.abs(this.uhol) > Math.PI*0.5 && !this.mimo){
         this.speed = -this.speed;
         this.mimo = true;
-      }else if (this.mimo){
+      } else if (this.mimo){
         this.mimo = false;
       }
 
@@ -67,7 +68,7 @@ class myska {
       }
 
       //vstup z klavesnice a pohyb dole
-      if((vstupy[32] == 1 || vstupy[123] == 1) && this.dole){
+      if((vstupy[32] == 1 || vstupy[123] == 1) && this.dole && nechod_dole == 1){
         if(bg_hudba.paused == 0) klikanie_hudba.play()
         bg_hudba.volume = 0.1
         this.y2 += rychlost_mysky * delta;
@@ -89,6 +90,9 @@ class myska {
       } 
       if(!this.dole && !this.hore){
         this.y2 -= rychlost_mysky * delta;
+      }
+      if(!nechod_dole){
+        nechod_dole = 1;
       }
   }
 }

@@ -20,13 +20,13 @@ class text {
 //texty v leveli
 class text_priemer extends text{
     constructor(){
-        super(10, 40, "30", "black", "Priemer: ");
+        super(10, 50, "45", "black", "Priemer: ");
     }
 }
 
 class pocitadlo_priemeru extends text{
     constructor(){
-        super(130, 40, "30", "black", ''+priemer);
+        super(190, 50, "45", "black", ''+priemer);
         this.pocet_znamok = 0;
         this.sucet_znamok = 0;
     }
@@ -34,12 +34,27 @@ class pocitadlo_priemeru extends text{
         this.pocet_znamok++;
         var id_znamky = zozbierana_znamka["image"].id;
         var hodnota_znamky;
-        if(id_znamky == "znamkaA") hodnota_znamky = 1.0;
-        if(id_znamky == "znamkaB") hodnota_znamky = 1.5;
-        if(id_znamky == "znamkaC") hodnota_znamky = 2.0;
-        if(id_znamky == "znamkaD") hodnota_znamky = 2.5;
-        if(id_znamky == "znamkaE") hodnota_znamky = 3.0;
-        if(id_znamky == "znamkaFX") hodnota_znamky = 3.5;
+        if(id_znamky == "znamkaA"){
+            hodnota_znamky = 1.0;
+            sceny[1][2].farba_mysky = 1;
+        }
+        if(id_znamky == "znamkaB"){
+            hodnota_znamky = 1.5;
+            sceny[1][2].farba_mysky = 4;
+        }
+        if(id_znamky == "znamkaC"){
+            hodnota_znamky = 2.0;
+            sceny[1][2].farba_mysky = 3;
+        }
+        if(id_znamky == "znamkaD"){
+            hodnota_znamky = 2.5;
+            sceny[1][2].farba_mysky = 0;
+        }
+        if(id_znamky == "znamkaE"){
+            hodnota_znamky = 3.0;
+            sceny[1][2].farba_mysky = 2;
+        }
+        if(id_znamky == "znamkaFX")  hodnota_znamky = 3.5;
 
         this.sucet_znamok += hodnota_znamky;
         priemer = this.sucet_znamok / this.pocet_znamok;
@@ -53,13 +68,13 @@ class pocitadlo_priemeru extends text{
 
 class znamky extends text{
     constructor() {
-        super(10, 80, "30", "black", "Známky: ");
+        super(10, 100, "45", "black", "Známky: ");
     }
 }
 
 class pocitadlo_znamok extends text {
     constructor() {
-        super(130, 80, "30", "black", ''+pocet_zozbieranych_znamok+"/6")
+        super(190, 100, "45", "black", ''+pocet_zozbieranych_znamok+"/6")
     }
     zmena_textu(){
         pocet_zozbieranych_znamok++;
@@ -77,14 +92,14 @@ class pocitadlo_znamok extends text {
 
 class cas extends text{
     constructor() {
-        super(canvas.width - 170, 40, "30", "black", "Čas: ");
+        super(canvas.width - 200, 50, "45", "black", "Čas: ");
     }
 }
 
 class casovac extends text{
     constructor() {
         var sekundy = 30;
-        super(canvas.width - 100, 40, "30", "black", ''+sekundy);
+        super(canvas.width - 100, 50, "45", "black", ''+sekundy);
         this.sekundy = sekundy;
         this.cas = 0;
     }
@@ -109,13 +124,13 @@ class casovac extends text{
 
 class level extends text{
     constructor() {
-        super(canvas.width - 170, 80, "30", "black", "Level: ");
+        super(canvas.width - 200, 90, "45", "black", "Level: ");
     }
 }
 
 class cislo_levelu extends text{
     constructor() {
-        super(canvas.width - 85, 80, "30", "black", pocet_levelov + '')
+        super(canvas.width - 75, 90, "45", "black", pocet_levelov + '')
     }
 }
 

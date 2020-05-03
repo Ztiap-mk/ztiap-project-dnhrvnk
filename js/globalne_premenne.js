@@ -25,3 +25,5 @@ var level_scena;
 var pocet_levelov = 1;
 var priemer = 0.0;
 var pocet_zozbieranych_znamok = 0;
+
+var nechod_dole = 1;

@@ -1,51 +1,3 @@
-function draw() {
-  sceny[prave_scena].forEach(element =>{
-    element.move(delta);
-    element.draw();
-  });
-}
-
-function step() {
-  draw()
-  zmena_zvukov()
-  delta_time()
-  vyhra_alebo_pregra();
-  requestAnimationFrame(step)
-}
-
-function delta_time(){
-  var teraz = Date.now();
-  delta = (teraz - last_update)/1000;
-  last_update = teraz;
-}
-
-function zmena_zvukov(){
-  if(prave_scena === 2 && zapnute) prehra_hudba.play();
-  if(prave_scena != 2 && zapnute) prehra_hudba.pause()
-  if(prave_scena != 1 && zapnute ) klikanie_hudba.pause()
-  if(prave_scena === 3 && zapnute) vyhra_hudba.play();
-  if(prave_scena != 3 && zapnute) vyhra_hudba.pause();
-}
-
-function aky_je_smer(x,y, matica){
-  var Fx = matica.m11*x-matica.m12*y+matica.m41;
-  var Fy = -matica.m21*x+ matica.m22*y+matica.m42;
-  return {Fx,Fy};
-}
-
-function vyhra_alebo_pregra() {
-  if(pocet_levelov == 4){
-    if(priemer < 2.0) prave_scena = 3;
-    else prave_scena = 2;
-  }
-}
-
-function zmena_levelu(){
-  pocet_zozbieranych_znamok = 0;
-  level_scena.vymaz()
-  level_scena.pridaj()
-}
-
 window.onload = function() {
   canvas = document.getElementById("canvas")
   ctx = canvas.getContext("2d")
@@ -54,6 +6,7 @@ window.onload = function() {
 
   function kliknutie(event){
     vstupy[123] = 1;
+    nechod_dole = 0;
     var x = event.pageX - canvas.offsetLeft
     var y = event.pageY - canvas.offsetTop
     if(prave_scena === 0){
@@ -97,11 +50,11 @@ window.onload = function() {
     if(x > menenie_zvuku.x  && x < menenie_zvuku.x + menenie_zvuku.velkost 
        && y > menenie_zvuku.y && y < menenie_zvuku.y + menenie_zvuku.velkost){
           if(zapnute == false){
-            document.getElementById("zvuk").src = "../materialy/zvuk/zapnuty zvuk.png";
+            menenie_zvuku.ktory = 1;
             bg_hudba.play()
             zapnute = true
           } else {
-            document.getElementById("zvuk").src = "../materialy/zvuk/vypnuty zvuk.png";
+            menenie_zvuku.ktory = 0;
             bg_hudba.pause()
             prehra_hudba.pause()
             vyhra_hudba.pause();
