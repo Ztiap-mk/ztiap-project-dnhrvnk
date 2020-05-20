@@ -18,11 +18,10 @@ class obrazky {
 class zvuk_zap extends obrazky {
   constructor() {
     super("zvuk", 10, canvas.height - 60, 50);
-    this.ktory = 0;
   }
   draw(){
     ctx.save()
-    ctx.drawImage(this.image, 820*this.ktory, 0, 820, 820, this.x, this.y, this.velkost, this.velkost);
+    ctx.drawImage(this.image, 820*ktory_obrazok_zvuku, 0, 820, 820, this.x, this.y, this.velkost, this.velkost);
     ctx.restore()
   }
 }

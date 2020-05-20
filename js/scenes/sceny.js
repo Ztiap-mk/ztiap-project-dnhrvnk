@@ -16,6 +16,9 @@ class ScenaMenu {
 class ScenaLevel {
     constructor(){
         this.pridaj();
+        zmena_casu_a_poctu_znamok_levela();
+        this.cas = 0;
+        this.sekundy = sekundy;
     }
 
     vymaz() {
@@ -111,9 +114,6 @@ class ScenyMedzilevel {
         sceny[5].push(new medzilevel());
         sceny[5].push(new medzilevel_tien());
     }
-    move(){
-        sceny[5][2].zmena_textu();
-        sceny[5][3].zmena_textu();
-    }
+    move(){}
     draw(){}
 }

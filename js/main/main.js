@@ -1,3 +1,17 @@
+function draw() {
+  sceny[prave_scena].forEach(element =>{
+    element.move(delta);
+    element.draw();
+  });
+}
+
+function step() {
+  draw()
+  zmena_zvukov()
+  delta_time()
+  requestAnimationFrame(step)
+}
+
 window.onload = function() {
   canvas = document.getElementById("canvas")
   ctx = canvas.getContext("2d")
@@ -13,51 +27,49 @@ window.onload = function() {
       sceny[0][2].onclick(x,y);
       sceny[0][3].onclick(x,y) ;
       vstupy[123] = 0;
+      koniec_hry = false; 
     }
     else if(prave_scena === 2){
       sceny[2][2].onclick(x,y);
       sceny[2][3].onclick(x,y)
       vstupy[123] = 0;
-      pocet_levelov = 1;
-      priemer = 0.0;
-      zmena_levelu();
+      koniec_hry = false; 
     }
     else if(prave_scena === 3){
       sceny[3][2].onclick(x,y);
       sceny[3][3].onclick(x,y)
       vstupy[123] = 0;
-      pocet_levelov = 1;
-      priemer = 0.0;
-      zmena_levelu();
+      koniec_hry = false; 
     } 
     else if(prave_scena === 4){
       sceny[4][3].onclick(x,y);
       sceny[4][2].onclick(x,y);
       vstupy[123] = 0;
+      koniec_hry = false; 
     }
 
     var tlacidlo_zrus_hru = sceny[1][11];
     if(x > tlacidlo_zrus_hru.x  && x < tlacidlo_zrus_hru.x + tlacidlo_zrus_hru.velkost 
        && y > tlacidlo_zrus_hru.y && y < tlacidlo_zrus_hru.y + tlacidlo_zrus_hru.velkost){
-        prave_scena = 2;
-        vstupy[123] = 0
-        zmena_levelu();
-        priemer = 0.0;
-        pocet_levelov = 1;
+        prave_scena = 2;   
+       zrusenie_levelu()
+       koniec_hry = false; 
     }
 
     var menenie_zvuku = sceny[prave_scena][1];
     if(x > menenie_zvuku.x  && x < menenie_zvuku.x + menenie_zvuku.velkost 
-       && y > menenie_zvuku.y && y < menenie_zvuku.y + menenie_zvuku.velkost){
+    && y > menenie_zvuku.y && y < menenie_zvuku.y + menenie_zvuku.velkost){
           if(zapnute == false){
-            menenie_zvuku.ktory = 1;
+            ktory_obrazok_zvuku = 1;
             bg_hudba.play()
             zapnute = true
           } else {
-            menenie_zvuku.ktory = 0;
+            ktory_obrazok_zvuku = 0;            
             bg_hudba.pause()
+            klikanie_hudba.pause()
             prehra_hudba.pause()
-            vyhra_hudba.pause();
+            vyhra_hudba.pause()
+            body_zvuk.pause()
             zapnute = false
           }
      }

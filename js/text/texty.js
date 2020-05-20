@@ -2,7 +2,7 @@ class text {
     constructor(x, y, velkost_fontu, farba, text) {
         this.x = x;
         this.y = y;
-        this.font = velkost_fontu;
+        this.velkost = velkost_fontu;
         this.farba = farba;
         this.text = text;
     }
@@ -10,7 +10,7 @@ class text {
     
       draw() {
         ctx.save()
-        ctx.font = this.font + "px 'Freckle Face'";
+        ctx.font = this.velkost + "px 'Freckle Face'";
         ctx.fillStyle = this.farba;
         ctx.fillText(this.text, this.x, this.y);
         ctx.restore()
@@ -27,41 +27,37 @@ class text_priemer extends text{
 class pocitadlo_priemeru extends text{
     constructor(){
         super(190, 50, "45", "black", ''+priemer);
-        this.pocet_znamok = 0;
-        this.sucet_znamok = 0;
     }
     vypocet_priemeru(zozbierana_znamka){
-        this.pocet_znamok++;
-        var id_znamky = zozbierana_znamka["image"].id;
-        var hodnota_znamky;
-        if(id_znamky == "znamkaA"){
-            hodnota_znamky = 1.0;
+        pocet_znamok++;                                         //počet všekých pozbieraných známok++
+        var id_znamky = zozbierana_znamka.ktore_y;          //pre zozbieranú známku sa zistí, že ktorá to bola
+        if(id_znamky == 0){                             //a podľa toho sa zistí jej hodnota a zmení farba myšky
+            var hodnota_znamky = 1.0;
             sceny[1][2].farba_mysky = 1;
         }
-        if(id_znamky == "znamkaB"){
-            hodnota_znamky = 1.5;
+        if(id_znamky == 1){
+            var hodnota_znamky = 1.5;
             sceny[1][2].farba_mysky = 4;
         }
-        if(id_znamky == "znamkaC"){
-            hodnota_znamky = 2.0;
+        if(id_znamky == 2){
+            var hodnota_znamky = 2.0;
             sceny[1][2].farba_mysky = 3;
         }
-        if(id_znamky == "znamkaD"){
-            hodnota_znamky = 2.5;
+        if(id_znamky == 3){
+            var hodnota_znamky = 2.5;
             sceny[1][2].farba_mysky = 0;
         }
-        if(id_znamky == "znamkaE"){
-            hodnota_znamky = 3.0;
+        if(id_znamky == 4){
+            var hodnota_znamky = 3.0;
             sceny[1][2].farba_mysky = 2;
         }
-        if(id_znamky == "znamkaFX")  hodnota_znamky = 3.5;
 
-        this.sucet_znamok += hodnota_znamky;
-        priemer = this.sucet_znamok / this.pocet_znamok;
+        sucet_znamok += hodnota_znamky;            //celkový súčet všetkých zozbieraných známok - pripočítavajú sa tam zadané hodnoty známky
+        priemer = sucet_znamok / pocet_znamok;     //výpočet priemeru
         
-        priemer = Math.round(priemer * 100) / 100
-        this.text = '' + priemer;
-        sceny[2][7].zmena_textu(priemer);
+        priemer = Math.round(priemer * 100) / 100   
+        this.text = '' + priemer;                    //výpis priemeru
+        sceny[2][7].zmena_textu(priemer);           //zmena textu v prehre a výhre
         sceny[3][6].zmena_textu(priemer);
     }
 }
@@ -74,18 +70,21 @@ class znamky extends text{
 
 class pocitadlo_znamok extends text {
     constructor() {
-        super(190, 100, "45", "black", ''+pocet_zozbieranych_znamok+"/6")
+        zmena_casu_a_poctu_znamok_levela();
+        super(190, 100, "45", "black", '' + pocet_zozbieranych_znamok+"/"+pozadovane_znamky);
+        this.kolko_znamok = pozadovane_znamky;
     }
     zmena_textu(){
         pocet_zozbieranych_znamok++;
-        this.text = ''+pocet_zozbieranych_znamok + "/6";
+        this.text = '' + pocet_zozbieranych_znamok + "/" + this.kolko_znamok;
 
-        if(pocet_zozbieranych_znamok == 6){
-            pocet_levelov++;
-            zmena_levelu();
-            prave_scena = 5;
-            sceny[5][2].zmena_textu();
+        if(pocet_zozbieranych_znamok == this.kolko_znamok){     //ak sa pozbieralo požadovaný počet známok
+            pocet_levelov++;                    
+            zmena_levelu();                     //vygeneruje sa nový level
+            prave_scena = 5;                    //spustí sa medzilevel scéna
+            sceny[5][2].zmena_textu();          //zmena textu v medzileveli
             sceny[5][3].zmena_textu();
+            vyhra_alebo_pregra();
         }
     }
 }
@@ -98,27 +97,29 @@ class cas extends text{
 
 class casovac extends text{
     constructor() {
-        var sekundy = 30;
-        super(canvas.width - 100, 50, "45", "black", ''+sekundy);
+        zmena_casu_a_poctu_znamok_levela();
+        super(canvas.width - 100, 50, "45", "black", '' + sekundy);
         this.sekundy = sekundy;
         this.cas = 0;
     }
     move(delta){
         this.cas += delta;
         if(this.cas >= 1){
-            this.sekundy--;
+            this.sekundy--;                    //odpočítavanie 1 sekundy
             this.text = '' + this.sekundy; 
             this.cas = 0;
         }
-
         if(this.sekundy <= 5) this.farba = "red";
 
-        if(this.sekundy == 0) {
-            prave_scena = 2;
-            this.sekundy = 30;
-            this.cas = 0;
-            zmena_levelu();
+        if(this.sekundy == 0) {                //ak som už na 0 sekundách                      
+            this.sekundy = sekundy;            //späť na 30 sekund
+            this.cas = 0;       
+            zrusenie_levelu();
+            prave_scena = 2;   
         }
+    }
+    bonus(){
+        this.sekundy += 7;
     }
 }
 
@@ -261,7 +262,7 @@ class stvrta_veta extends text{
 
 class piata_veta extends text{
     constructor() {
-        super(50, 350, "25", "black", "Tvoj celkový priemer musí byť pod 2.0, tak hor sa do učenia!");
+        super(50, 350, "25", "black", "Tvoj celkový priemer musí byť pod 2.2, tak hor sa do učenia!");
     }
 }
 
@@ -274,9 +275,9 @@ class medzilevel extends text{
 
     move(delta){
         this.cas += delta;
-        if(this.cas >= 1.5){
-            this.cas = 0;
-            prave_scena = 1;
+        if(this.cas >= 1.5){      //medzilevel trvá 1.5 sekundy
+            this.cas = 0;   
+            prave_scena = 1;      //potom sa znova spustí level
         }
     }
     zmena_textu(){

@@ -18,11 +18,10 @@ class tlacidla {
         ctx.restore();
     }
 
-    onclick(x,y) {
-        if (x > this.x1  && x < this.x1 + this.x2 && 
-            y > this.y1 && y < this.y1 + this.y2){
-            prave_scena = this.akcia
-            }
+    onclick(x, y) {                                                                         //koordinácie myšky
+        if (x > this.x1  && x < this.x1 + this.x2 && y > this.y1 && y < this.y1 + this.y2){ //a ak sa nachádzajú na tlačidle
+            prave_scena = this.akcia                                                        //tak sa zmení scéna podľa daného tlačidla
+        }
     }
 }
 
